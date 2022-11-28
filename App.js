@@ -8,6 +8,8 @@ import ImageViewer from './components/ImageViewer';
 import CircleButton from './components/CircleButton';
 import IconButton from './components/IconButton';
 import EmojiPicker from './components/EmojiPicker';
+import EmojiList from './components/EmojiList';
+import EmojiSticker from './components/EmojiSticker';
 
 // to select images and videos from the phone's library or take a photo with the camera.
 import * as ImagePicker from 'expo-image-picker';
@@ -15,6 +17,8 @@ import * as ImagePicker from 'expo-image-picker';
 const placeHolderImage = require('./assets/images/background-image.png');
 
 const App = () => {
+  const [pickedEmoji, setPickedEmoji] = useState(null);
+
   // The modal is hidden until the user presses the 'CircleButton' to open it.
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -70,6 +74,9 @@ const App = () => {
           placeHolderImageSource={placeHolderImage}
           selectedImage={selectedImage}
         />
+        {pickedEmoji !== null ? (
+          <EmojiSticker imageSize={40} stickerSource={pickedEmoji} />
+        ) : null}
       </View>
 
       {/* Based on the value of showAppOptions, the buttons will be displayed. */}
@@ -99,10 +106,9 @@ const App = () => {
         </View>
       )}
 
-      <EmojiPicker
-        isVisible={isModalVisible}
-        onClose={onModalClose}
-      ></EmojiPicker>
+      <EmojiPicker isVisible={isModalVisible} onClose={onModalClose}>
+        <EmojiList onSelect={setPickedEmoji} onCloseModal={onModalClose} />
+      </EmojiPicker>
 
       <StatusBar style='light' />
     </View>
