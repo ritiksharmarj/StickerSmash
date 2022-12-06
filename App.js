@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, ToastAndroid, View } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 // Components
 import Button from './components/Button';
@@ -68,7 +69,7 @@ const App = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <GestureHandlerRootView style={styles.container}>
       <View style={styles.imageContainer}>
         <ImageViewer
           placeHolderImageSource={placeHolderImage}
@@ -111,7 +112,7 @@ const App = () => {
       </EmojiPicker>
 
       <StatusBar style='light' />
-    </View>
+    </GestureHandlerRootView>
   );
 };
 
